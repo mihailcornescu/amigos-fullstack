@@ -1,13 +1,13 @@
-package com.mihailcornescu;
+package com.mihailcornescu.customer;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-@Service
+@Repository
 public class CustomerDataAccessService implements CustomerDao {
 
     private static List<Customer> customers;

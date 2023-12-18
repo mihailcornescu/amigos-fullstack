@@ -1,4 +1,4 @@
-package com.mihailcornescu;
+package com.mihailcornescu.customer;
 
 import java.util.List;
 import java.util.Optional;

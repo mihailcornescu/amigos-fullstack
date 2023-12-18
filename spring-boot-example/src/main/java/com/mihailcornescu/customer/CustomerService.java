@@ -1,5 +1,7 @@
-package com.mihailcornescu;
+package com.mihailcornescu.customer;
 
+import com.mihailcornescu.exception.ResourceNotFoundException;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,7 +11,7 @@ public class CustomerService {
 
     private final CustomerDao customerDao;
 
-    public CustomerService(CustomerDao customerDao) {
+    public CustomerService(@Qualifier("list") CustomerDao customerDao) {
         this.customerDao = customerDao;
     }
 
@@ -19,7 +21,7 @@ public class CustomerService {
 
     public Customer selectCustomerById(Integer id) {
         return customerDao.selectCustomerById(id)
-                .orElseThrow(() -> new IllegalArgumentException("invalid id"));
+                .orElseThrow(() -> new ResourceNotFoundException("invalid id"));
     }
 
 }
