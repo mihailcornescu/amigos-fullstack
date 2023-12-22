@@ -12,7 +12,7 @@ public class CustomerService {
 
     private final CustomerDao customerDao;
 
-    public CustomerService(@Qualifier("jpa") CustomerDao customerDao) {
+    public CustomerService(@Qualifier("jdbc") CustomerDao customerDao) {
         this.customerDao = customerDao;
     }
 
@@ -22,12 +22,12 @@ public class CustomerService {
 
     public Customer selectCustomerById(Long id) {
         return customerDao.selectCustomerById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("invalid id"));
+                .orElseThrow(() -> new ResourceNotFoundException("Customer with id [%d] does not exist!".formatted(id)));
     }
 
     public void addCustomer(CustomerRegistrationRequest request) {
         String email = request.email();
-        if (customerDao.existsCustomeWithEmail(email)) {
+        if (customerDao.existsCustomerWithEmail(email)) {
             throw new DuplicateResourceException("customer with email [%s] already exists!".formatted(email));
         }
         customerDao.insertCustmer(

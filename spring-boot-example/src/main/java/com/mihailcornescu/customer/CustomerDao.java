@@ -8,6 +8,6 @@ public interface CustomerDao {
     List<Customer> selectAllCustomers();
     Optional<Customer> selectCustomerById(Long id);
     void insertCustmer(Customer customer);
-    boolean existsCustomeWithEmail(String email);
+    boolean existsCustomerWithEmail(String email);
     void deleteCustomerById(Long id);
 }
