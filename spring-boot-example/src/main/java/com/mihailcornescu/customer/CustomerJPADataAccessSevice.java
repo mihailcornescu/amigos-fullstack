@@ -1,6 +1,5 @@
 package com.mihailcornescu.customer;
 
-import com.mihailcornescu.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -34,10 +33,12 @@ public class CustomerJPADataAccessSevice implements CustomerDao {
     }
 
     @Override
+    public boolean existsCustomerWithId(Long id) {
+        return customerRepository.existsCustomerById(id);
+    }
+
+    @Override
     public void deleteCustomerById(Long id) {
-        if (!customerRepository.existsCustomerById(id)) {
-            throw new ResourceNotFoundException("customer with id [%s] was not found.".formatted(id));
-        }
         customerRepository.deleteById(id);
     }
 }

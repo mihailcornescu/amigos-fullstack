@@ -42,6 +42,11 @@ public class CustomerDataAccessService implements CustomerDao {
     }
 
     @Override
+    public boolean existsCustomerWithId(Long id) {
+        return customers.stream().anyMatch(c -> c.getId().equals(id));
+    }
+
+    @Override
     public void deleteCustomerById(Long id) {
         Optional<Customer> customer = Optional.ofNullable(customers.stream().filter(c -> c.getId().equals(id)).findFirst()
                 .orElseThrow(() -> new ResourceNotFoundException("customer with id [%s] was not found.".formatted(id))));

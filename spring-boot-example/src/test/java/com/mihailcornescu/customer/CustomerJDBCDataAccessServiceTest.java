@@ -97,7 +97,33 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
 
         //when
         assertThat(result).isTrue();
+    }
 
+    @Test
+    void existsCustomerWithId() {
+        //given
+        String email = "matthew@mail.com";
+        Customer customer = new Customer("Matthew", email, 19);
+        service.insertCustmer(customer);
+        Long id = getIdFromCustomerByEmail(email);
+
+        //then
+        boolean result = service.existsCustomerWithId(id);
+
+        //when
+        assertThat(result).isTrue();
+    }
+
+    @Test
+    void existsCustomerWithIdFailNotPresent() {
+        //given
+        Long id = -1L;
+
+        //then
+        boolean result = service.existsCustomerWithId(id);
+
+        //when
+        assertThat(result).isFalse();
     }
 
     @Test

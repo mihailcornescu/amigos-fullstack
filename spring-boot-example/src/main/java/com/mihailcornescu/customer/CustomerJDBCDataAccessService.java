@@ -58,6 +58,17 @@ public class CustomerJDBCDataAccessService implements CustomerDao {
     }
 
     @Override
+    public boolean existsCustomerWithId(Long id) {
+        var sql = """
+                SELECT count(*)
+                FROM customer
+                WHERE id = ?
+                """;
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, id);
+        return count != null && count > 0;
+    }
+
+    @Override
     public void deleteCustomerById(Long id) {
         var sql = """
                 DELETE FROM customer
