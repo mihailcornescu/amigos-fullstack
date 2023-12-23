@@ -16,11 +16,11 @@ public class CustomerService {
         this.customerDao = customerDao;
     }
 
-    public List<Customer> selectAllCustomers() {
+    public List<Customer> getAllCustomers() {
         return customerDao.selectAllCustomers();
     }
 
-    public Customer selectCustomerById(Long id) {
+    public Customer getCustomerById(Long id) {
         return customerDao.selectCustomerById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Customer with id [%d] does not exist!".formatted(id)));
     }

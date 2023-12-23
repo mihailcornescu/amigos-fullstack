@@ -16,12 +16,12 @@ public class CustomerController {
 
     @GetMapping
     public List<Customer> getCustomers() {
-        return customerService.selectAllCustomers();
+        return customerService.getAllCustomers();
     }
 
     @GetMapping("{id}")
     public Customer getCustomer(@PathVariable Long id) {
-        return customerService.selectCustomerById(id);
+        return customerService.getCustomerById(id);
     }
 
     @PostMapping
