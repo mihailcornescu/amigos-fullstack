@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.2.0'
 	id 'io.spring.dependency-management' version '1.1.4'
+	id 'com.google.cloud.tools.jib' version '3.4.0'
 }
 
 group = 'com.mihailcornescu'
@@ -39,3 +40,23 @@ test {
 		excludeTestsMatching "*.journey.*"
 	}
 }
+
+
+jib {
+	from {
+		image = 'eclipse-temurin:17'
+		platforms {
+			platform {
+				architecture = 'amd64'
+				os = 'linux'
+			}
+		}
+	}
+	to {
+		image = 'docker.io/mihailcornescu/amigoscode-api:' + version
+		tags = ['latest']
+	}
+	container {
+		jvmFlags = ['-Xms512m', '-Xmx1024m']
+//		ports = [8080]
+	}}
