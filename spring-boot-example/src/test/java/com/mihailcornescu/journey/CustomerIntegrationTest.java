@@ -2,6 +2,7 @@ package com.mihailcornescu.journey;
 
 import com.mihailcornescu.customer.Customer;
 import com.mihailcornescu.customer.CustomerRegistrationRequest;
+import net.datafaker.Faker;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,10 +25,14 @@ class CustomerIntegrationTest {
     @Test
     void canRegisterCustomer() {
         //create registration request
+        Faker faker = new Faker();
+        String name = faker.name().fullName();
+        String email = faker.internet().emailAddress();
+        int age = faker.number().numberBetween(1, 40);
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
-                "Alex",
-                "alex@mail.com",
-                19
+                name,
+                email,
+                age
         );
         //send post request
         webTestClient
@@ -86,10 +91,14 @@ class CustomerIntegrationTest {
     @Test
     void canDeleteCustomer() {
         //create registration request
+        Faker faker = new Faker();
+        String name = faker.name().fullName();
+        String email = faker.internet().emailAddress();
+        int age = faker.number().numberBetween(1, 40);
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
-                "Mariah",
-                "mariah@mail.com",
-                21
+                name,
+                email,
+                age
         );
 
         //send post request
