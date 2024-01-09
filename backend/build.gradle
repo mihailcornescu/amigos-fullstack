@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.mihailcornescu'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.2-SNAPSHOT'
 
 java {
 	sourceCompatibility = '17'
@@ -53,7 +53,7 @@ jib {
 		}
 	}
 	to {
-		image = 'docker.io/mihailcornescu/amigoscode-api:' + version
+		image = 'docker.io/mihailcornescu/amigoscode-api:' + new Date().format("dd.MM.yyyy.HH.mm.ss")
 		tags = ['latest']
 	}
 	container {
