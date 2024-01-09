@@ -1,8 +1,6 @@
 **/.gradle
 **/build
-.idea/*
-.idea/modules.xml
-.idea/vcs.xml
+.idea/
 **/node_modules
 **/.DS_store
 
