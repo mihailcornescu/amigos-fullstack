@@ -35,7 +35,7 @@ class CustomerRowMapperTest {
 
         //then
         assertThat(customer.getId()).isEqualTo(id);
-        assertThat(customer.getName()).isEqualTo("Mike");
+        assertThat(customer.getName()).isEqualTo(name);
         assertThat(customer.getEmail()).isEqualTo(email);
         assertThat(customer.getAge()).isEqualTo(age);
     }
