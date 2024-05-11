@@ -33,4 +33,9 @@ public class CustomerController {
     public void deleteCustomerById(@PathVariable Long id) {
         customerService.deleteCustomerById(id);
     }
+
+    @GetMapping("/dummy")
+    public String getDummy() {
+        return "dunny";
+    }
 }
