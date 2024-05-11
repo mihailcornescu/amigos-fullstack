@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
+import static com.mihailcornescu.customer.TestUtils.getRandomCustomer;
 
 class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
 
@@ -26,8 +27,8 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
     @Test
     void selectAllCustomers() {
         //given
-        Customer customer = new Customer("Mike", "mike@mail.com", 32);
-        service.insertCustmer(customer);
+        Customer customer = getRandomCustomer();
+        service.insertCustomer(customer);
 
         //then
         assertThat(service.selectAllCustomers()).hasSize(1);
@@ -36,9 +37,9 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
     @Test
     void selectCustomerById() {
         //given
-        String email = "nicki@mail.com";
-        Customer customer = new Customer("Nicki", email, 32);
-        service.insertCustmer(customer);
+        Customer customer = getRandomCustomer();
+        String email = customer.getEmail();
+        service.insertCustomer(customer);
         Long id = getIdFromCustomerByEmail(email);
 
         //when
@@ -68,11 +69,11 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
     @Test
     void insertCustomer() {
         //given
-        String email = "charlotte@mail.com";
-        Customer customer = new Customer("Charlotte", email, 27);
+        Customer customer = getRandomCustomer();
+        String email = customer.getEmail();
 
         //when
-        service.insertCustmer(customer);
+        service.insertCustomer(customer);
 
         //then
         Long id = getIdFromCustomerByEmail(email);
@@ -88,9 +89,9 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
     @Test
     void existsCustomerWithEmail() {
         //given
-        String email = "john@mail.com";
-        Customer customer = new Customer("John", email, 27);
-        service.insertCustmer(customer);
+        Customer customer = getRandomCustomer();
+        String email = customer.getEmail();
+        service.insertCustomer(customer);
 
         //then
         boolean result = service.existsCustomerWithEmail(email);
@@ -102,9 +103,9 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
     @Test
     void existsCustomerWithId() {
         //given
-        String email = "matthew@mail.com";
-        Customer customer = new Customer("Matthew", email, 19);
-        service.insertCustmer(customer);
+        Customer customer = getRandomCustomer();
+        String email = customer.getEmail();
+        service.insertCustomer(customer);
         Long id = getIdFromCustomerByEmail(email);
 
         //then
@@ -129,9 +130,9 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
     @Test
     void deleteCustomerById() {
         //given
-        String email = "andrew@mail.com";
-        Customer customer = new Customer("Andrew", email, 34);
-        service.insertCustmer(customer);
+        Customer customer = getRandomCustomer();
+        String email = customer.getEmail();
+                service.insertCustomer(customer);
         Long id = getIdFromCustomerByEmail(email);
 
         //when

@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.ApplicationContext;
 
+import static com.mihailcornescu.customer.TestUtils.getRandomCustomer;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
@@ -28,8 +29,8 @@ class CustomerRepositoryTest extends AbstractTestcontainers {
     @Test
     void existsCustomerByEmail() {
         //given
-        String email = "charlotte@mail.com";
-        Customer customer = new Customer("Charlotte", email, 27);
+        Customer customer = getRandomCustomer();
+        String email = customer.getEmail();
         underTest.save(customer);
 
         //when
@@ -54,8 +55,8 @@ class CustomerRepositoryTest extends AbstractTestcontainers {
     @Test
     void existsCustomerById() {
         //given
-        String email = "alex@mail.com";
-        Customer customer = new Customer("Alex", email, 45);
+        Customer customer = getRandomCustomer();
+        String email = customer.getEmail();
         underTest.save(customer);
         Long alexId = underTest.findAll().stream().filter(c -> c.getEmail().equals(email)).map(Customer::getId).findFirst().orElseThrow();
 

@@ -24,10 +24,13 @@ class CustomerRowMapperTest {
         String name = "Alex";
         String email = "alex@mail.com";
         int age = 20;
+        Gender gender = Gender.MALE;
         when(rs.getLong("id")).thenReturn(id);
         when(rs.getString("name")).thenReturn(name);
         when(rs.getString("email")).thenReturn(email);
         when(rs.getInt("age")).thenReturn(age);
+        when(rs.getString("gender")).thenReturn(gender.name());
+
         CustomerRowMapper customerRowMapper = new CustomerRowMapper();
 
         //when

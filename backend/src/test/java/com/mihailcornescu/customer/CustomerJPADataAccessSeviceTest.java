@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import static com.mihailcornescu.customer.TestUtils.getRandomCustomer;
 import static org.mockito.Mockito.verify;
 
 class CustomerJPADataAccessSeviceTest {
@@ -45,10 +46,10 @@ class CustomerJPADataAccessSeviceTest {
     void insertCustmer() {
         //given
         String email = "maria@mail.com";
-        Customer customer = new Customer("Maria", email, 30);
+        Customer customer = getRandomCustomer();
 
         //when
-        undertTest.insertCustmer(customer);
+        undertTest.insertCustomer(customer);
 
         //then
         verify(customerRepository).save(customer);

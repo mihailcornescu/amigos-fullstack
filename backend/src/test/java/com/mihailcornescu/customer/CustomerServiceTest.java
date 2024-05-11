@@ -15,6 +15,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static com.mihailcornescu.customer.TestUtils.getRandomCustomerWithId;
+import static com.mihailcornescu.customer.TestUtils.getRandomCustomerRegistrationRequest;
+
 
 @ExtendWith(MockitoExtension.class)
 class CustomerServiceTest {
@@ -41,7 +44,7 @@ class CustomerServiceTest {
     void canGetCustomerById() {
         //given
         Long id = 10L;
-        Customer customer = new Customer(id, "Alex", "alex@mail.com", 19);
+        Customer customer = getRandomCustomerWithId(id);
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
         //when
@@ -66,16 +69,16 @@ class CustomerServiceTest {
     @Test
     void addCustomer() {
         //given
-        String email = "alex@mail.com";
+        CustomerRegistrationRequest request = getRandomCustomerRegistrationRequest();
+        String email = request.email();
         when(customerDao.existsCustomerWithEmail(email)).thenReturn(false);
-        CustomerRegistrationRequest request = new CustomerRegistrationRequest("Alex", email, 21);
 
         //when
         underTest.addCustomer(request);
 
         //then
         ArgumentCaptor<Customer> customerArgumentCaptor = ArgumentCaptor.forClass(Customer.class);
-        verify(customerDao).insertCustmer(customerArgumentCaptor.capture());
+        verify(customerDao).insertCustomer(customerArgumentCaptor.capture());
         Customer capturedCustomer = customerArgumentCaptor.getValue();
         assertThat(capturedCustomer.getId()).isNull();
         assertThat(capturedCustomer.getName()).isEqualTo(request.name());
@@ -87,9 +90,9 @@ class CustomerServiceTest {
     @Test
     void addCustomerDuplicateEmail() {
         //given
-        String email = "alex@mail.com";
+        CustomerRegistrationRequest request = getRandomCustomerRegistrationRequest();
+        String email = request.email();
         when(customerDao.existsCustomerWithEmail(email)).thenReturn(true);
-        CustomerRegistrationRequest request = new CustomerRegistrationRequest("Alex", email, 21);
 
         //then
         assertThatThrownBy(() -> underTest.addCustomer(request))

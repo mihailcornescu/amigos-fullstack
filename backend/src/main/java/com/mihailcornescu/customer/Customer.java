@@ -33,20 +33,29 @@ public class Customer {
     private String email;
     @Column(nullable = false)
     private Integer age;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Customer() {}
 
-    public Customer(Long id, String name, String email, Integer age) {
+    public Customer(Long id, String name, String email, Integer age,  Gender gender) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.age = age;
+        this.gender = gender;
     }
 
-    public Customer(String name, String email, Integer age) {
+    public Customer(String name, String email, Integer age, Gender gender) {
         this.name = name;
         this.email = email;
         this.age = age;
+        this.gender = gender;
     }
 
     public Long getId() {
@@ -68,5 +77,14 @@ public class Customer {
     public Integer getAge() {
         return age;
     }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
 
 }

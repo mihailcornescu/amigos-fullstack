@@ -23,7 +23,7 @@ public class CustomerJPADataAccessSevice implements CustomerDao {
     }
 
     @Override
-    public void insertCustmer(Customer customer) {
+    public void insertCustomer(Customer customer) {
         customerRepository.save(customer);
     }
 

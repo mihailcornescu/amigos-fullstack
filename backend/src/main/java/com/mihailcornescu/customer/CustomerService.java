@@ -30,11 +30,12 @@ public class CustomerService {
         if (customerDao.existsCustomerWithEmail(email)) {
             throw new DuplicateResourceException("customer with email [%s] already exists!".formatted(email));
         }
-        customerDao.insertCustmer(
+        customerDao.insertCustomer(
                 new Customer(
                         request.name(),
                         request.email(),
-                        request.age()
+                        request.age(),
+                        request.gender()
                 )
         );
     }

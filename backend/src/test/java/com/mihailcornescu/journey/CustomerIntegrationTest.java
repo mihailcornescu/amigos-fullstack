@@ -2,6 +2,7 @@ package com.mihailcornescu.journey;
 
 import com.mihailcornescu.customer.Customer;
 import com.mihailcornescu.customer.CustomerRegistrationRequest;
+import com.mihailcornescu.customer.Gender;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,8 @@ class CustomerIntegrationTest {
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
                 name,
                 email,
-                age
+                age,
+                Gender.MALE
         );
         //send post request
         webTestClient
@@ -57,7 +59,7 @@ class CustomerIntegrationTest {
                 .getResponseBody();
 
         //make sure customer is there
-        Customer expectedCustomer = new Customer(request.name(), request.email(), request.age());
+        Customer expectedCustomer = new Customer(request.name(), request.email(), request.age(), request.gender());
         assertThat(allCustomers)
                 .usingRecursiveFieldByFieldElementComparatorIgnoringFields("id")
                 .contains(expectedCustomer);
@@ -98,7 +100,8 @@ class CustomerIntegrationTest {
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
                 name,
                 email,
-                age
+                age,
+                Gender.FEMALE
         );
 
         //send post request
